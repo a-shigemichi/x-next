@@ -3,6 +3,7 @@ import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import { HiArrowLeft } from 'react-icons/hi';
 import Link from 'next/link';
 import Post from '@/components/Post';
+import Comments from '@/components/Comments';
 
 
 export default async function PostPage({ params }) {
@@ -10,6 +11,7 @@ export default async function PostPage({ params }) {
   let data = {};
   const querySnapshot = await getDoc(doc(db, 'posts', params.id));
   data = { ...querySnapshot.data(), id: querySnapshot.id };
+  
 
   return (
     <div className='max-w-xl mx-auto border-r border-l min-h-screen'>
@@ -20,6 +22,7 @@ export default async function PostPage({ params }) {
         <h2 className='sm:text-lg'>Back</h2>
       </div>
       <Post post={data} id={data.id} />
+      <Comments id={params.id}/>
     </div>
   );
 }
